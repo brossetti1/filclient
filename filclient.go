@@ -20,11 +20,11 @@ import (
 	"github.com/filecoin-project/go-address"
 	cborutil "github.com/filecoin-project/go-cbor-util"
 	"github.com/filecoin-project/go-commp-utils/writer"
-	datatransfer "github.com/filecoin-project/go-data-transfer"
-	"github.com/filecoin-project/go-data-transfer/channelmonitor"
-	dtimpl "github.com/filecoin-project/go-data-transfer/impl"
-	dtnet "github.com/filecoin-project/go-data-transfer/network"
-	gst "github.com/filecoin-project/go-data-transfer/transport/graphsync"
+	datatransfer "github.com/filecoin-project/go-data-transfer/v2"
+	"github.com/filecoin-project/go-data-transfer/v2/channelmonitor"
+	dtimpl "github.com/filecoin-project/go-data-transfer/v2/impl"
+	dtnet "github.com/filecoin-project/go-data-transfer/v2/network"
+	gst "github.com/filecoin-project/go-data-transfer/v2/transport/graphsync"
 	commcid "github.com/filecoin-project/go-fil-commcid"
 	commp "github.com/filecoin-project/go-fil-commp-hashhash"
 	"github.com/filecoin-project/go-fil-markets/retrievalmarket"
@@ -1529,7 +1529,7 @@ func (fc *FilClient) CheckChainDeal(ctx context.Context, dealid abi.DealID) (boo
 func (fc *FilClient) CheckOngoingTransfer(ctx context.Context, miner address.Address, st *ChannelState) (outerr error) {
 	defer func() {
 		// TODO: this is only here because for some reason restarting a data transfer can just panic
-		// https://github.com/filecoin-project/go-data-transfer/issues/150
+		// https://github.com/filecoin-project/go-data-transfer/v2/issues/150
 		if e := recover(); e != nil {
 			outerr = fmt.Errorf("panic while checking transfer: %s", e)
 		}
